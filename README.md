@@ -10,6 +10,7 @@ In this project, I am going to visualize the data of renewable energy technical 
 
 
 ## Choropleth map of estimated technical potential for each kind of energy
+(Note: By running the Jupyter file directly, we can display the choropleth map of estimated technical potential automatically. The image is the screen shot of the html.)
 
 ### 1. Utility-Scale Photovoltaics (Urban)
 
