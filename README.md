@@ -78,3 +78,9 @@ Technical potential for hydropower exists predominately in the Northwest and Ala
 
 ![alt tag](https://github.com/XintongHao/Analysis-of-Renewable_Energy_Technical_Potential/blob/master/plot.png)
 
+## Conclusion
+* Texas has the highest total estimated technical potential。
+* The biggest proportion of estimated technical potential in most state is Utility-Scale Photovoltaics which relats to the solar resource and population.
+* Technical potential for offshore wind power is present in significant quantities in all offshore regions of the United States such as Hawaii, Massachusetts and Rhode Island.
+* The vast majority of the geothermal potential for EGS within the contiguous United States is located in the westernmost portion of the country.
+
