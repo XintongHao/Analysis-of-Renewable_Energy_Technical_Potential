@@ -1,0 +1,2524 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Renewable\_Energy\_Technical\_Potential}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Dashboard of Renewable Energy in the
+U.S}\label{dashboard-of-renewable-energy-in-the-u.s}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{folium}
+        \PY{k+kn}{import} \PY{n+nn}{os}
+        \PY{k+kn}{from} \PY{n+nn}{branca}\PY{n+nn}{.}\PY{n+nn}{utilities} \PY{k}{import} \PY{n}{split\PYZus{}six}
+        \PY{n}{state\PYZus{}geo} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{us\PYZhy{}states.json}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+\end{Verbatim}
+
+
+    \subsection{Import Data}\label{import-data}
+
+\begin{itemize}
+\tightlist
+\item
+  Data Source:
+  https://catalog.data.gov/dataset/united-states-renewable-energy-technical-potential
+\item
+  Reference:
+  https://openei.org/doe-opendata/dataset/5346c5c2-be26-4be7-9663-b5a98cbb7527/resource/01fe78a8-77b6-4c59-bc36-cae177ee86c3/download/usretechpotential.pdf
+\item
+  Goal: Create dashboard to visualize the data of renewable energy
+  technical potential in the US.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{inputDF} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{usretechnicalpotential.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{inputDF} \PY{o}{=} \PY{n}{inputDF}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Unnamed: 0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} replacing NaN values with 0}
+        \PY{n}{inputDF}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{inputDF}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:}         state  urbanUtilityScalePV\_GWh  urbanUtilityScalePV\_GW  \textbackslash{}
+        0     Alabama                    35850                      20   
+        1      Alaska                      166                       0   
+        2     Arizona                   121305                      52   
+        3    Arkansas                    28960                      15   
+        4  California                   246008                     111   
+        
+           urbanUtilityScalePV\_km2  ruralUtilityScalePV\_GWh  ruralUtilityScalePV\_GW  \textbackslash{}
+        0                      426                  3706838                    2114   
+        1                        2                  8282976                    9005   
+        2                     1096                 11867693                    5147   
+        3                      332                  4986388                    2747   
+        4                     2320                  8855917                    4010   
+        
+           ruralUtilityScalePV\_km2  rooftopPV\_GWh  rooftopPV\_GW   CSP\_GWh  \textbackslash{}
+        0                    44058        15475.0            12         0   
+        1                   187608            0.0             1         0   
+        2                   107230        22736.0            14  12544333   
+        3                    57239         8484.0             6         0   
+        4                    83549       106411.0            75   8490916   
+        
+                    {\ldots}             biopowerGaseous\_GWh  biopowerGaseous\_GW  \textbackslash{}
+        0           {\ldots}                            1533                   0   
+        1           {\ldots}                              61                   0   
+        2           {\ldots}                             837                   0   
+        3           {\ldots}                            1063                   0   
+        4           {\ldots}                           15510                   1   
+        
+           biopowerGaseous\_Tonnes-CH4  geothermalHydrothermal\_GWh  \textbackslash{}
+        0                      326186                           0   
+        1                       13156                       15437   
+        2                      178188                        8329   
+        3                      226178                           0   
+        4                     3300211                      130921   
+        
+           geothermalHydrothermal\_GW  EGSGeothermal\_GWh  EGSGeothermal\_GW  \textbackslash{}
+        0                          0           535489.0              67.0   
+        1                          1                0.0               0.0   
+        2                          1          1239147.0             157.0   
+        3                          0           628621.0              79.0   
+        4                         16          1344179.0             170.0   
+        
+           hydropower\_GWh  hydropower\_GW  hydropower\_countOfSites  
+        0            4102              0                     2435  
+        1           23675              5                     3053  
+        2            1303              0                     1958  
+        3            6093              1                     3268  
+        4           30023              6                     9692  
+        
+        [5 rows x 31 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{inputDF}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 51 entries, 0 to 50
+Data columns (total 31 columns):
+state                         51 non-null object
+urbanUtilityScalePV\_GWh       51 non-null int64
+urbanUtilityScalePV\_GW        51 non-null int64
+urbanUtilityScalePV\_km2       51 non-null int64
+ruralUtilityScalePV\_GWh       51 non-null int64
+ruralUtilityScalePV\_GW        51 non-null int64
+ruralUtilityScalePV\_km2       51 non-null int64
+rooftopPV\_GWh                 51 non-null float64
+rooftopPV\_GW                  51 non-null int64
+CSP\_GWh                       51 non-null int64
+CSP\_GW                        51 non-null int64
+CSP\_km2                       51 non-null int64
+onshoreWind\_GWh               51 non-null int64
+onshoreWind\_GW                51 non-null int64
+onshoreWind\_km2               51 non-null int64
+offshoreWind\_GWh              51 non-null float64
+offshoreWind\_GW               51 non-null float64
+offshoreWind\_km2              51 non-null float64
+biopowerSolid\_GWh             51 non-null int64
+biopowerSolid\_GW              51 non-null int64
+biopowerSolid\_BDT             51 non-null int64
+biopowerGaseous\_GWh           51 non-null int64
+biopowerGaseous\_GW            51 non-null int64
+biopowerGaseous\_Tonnes-CH4    51 non-null int64
+geothermalHydrothermal\_GWh    51 non-null int64
+geothermalHydrothermal\_GW     51 non-null int64
+EGSGeothermal\_GWh             51 non-null float64
+EGSGeothermal\_GW              51 non-null float64
+hydropower\_GWh                51 non-null int64
+hydropower\_GW                 51 non-null int64
+hydropower\_countOfSites       51 non-null int64
+dtypes: float64(6), int64(24), object(1)
+memory usage: 12.4+ KB
+
+    \end{Verbatim}
+
+    \subsection{Organize data}\label{organize-data}
+
+    \subsubsection{1. Utility-Scale Photovoltaics
+(Urban)}\label{utility-scale-photovoltaics-urban}
+
+\begin{itemize}
+\tightlist
+\item
+  Definition: large-scale photovoltaics(PV) deployed within urban
+  boundaries on urban open space.
+\item
+  State technical potential generation is expressed as:
+  \[ StateMWh = State \Sigma[UrbanOpenSapce(km^2)*PowerDensity(48 \frac{MW}{km^2})* StateCapacityFactor(\%)* 8760(HoursPerYear)] \]
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{urbanUtilityScalePV\PYZus{}DF} \PY{o}{=} \PY{n}{inputDF}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{urbanUtilityScalePV\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{urbanUtilityScalePV\PYZus{}GW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{urbanUtilityScalePV\PYZus{}km2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+        \PY{n}{urbanUtilityScalePV\PYZus{}sumDF} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{U.S Total}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PYZbs{}
+                                                   \PY{n}{urbanUtilityScalePV\PYZus{}DF}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{urbanUtilityScalePV\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PYZbs{}
+                                                   \PY{n}{urbanUtilityScalePV\PYZus{}DF}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{urbanUtilityScalePV\PYZus{}GW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PYZbs{}
+                                                   \PY{n}{urbanUtilityScalePV\PYZus{}DF}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{urbanUtilityScalePV\PYZus{}km2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PYZbs{}
+                                                 \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{urbanUtilityScalePV\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{urbanUtilityScalePV\PYZus{}GW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{urbanUtilityScalePV\PYZus{}km2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \paragraph{The total estimated annual technical potential in the United
+States for urban utility-scale
+PV：}\label{the-total-estimated-annual-technical-potential-in-the-united-states-for-urban-utility-scale-pv}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{urbanUtilityScalePV\PYZus{}sumDF}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:}        state  urbanUtilityScalePV\_GWh  urbanUtilityScalePV\_GW  \textbackslash{}
+        0  U.S Total                  2231670                    1195   
+        
+           urbanUtilityScalePV\_km2  
+        0                    25343  
+\end{Verbatim}
+            
+    \paragraph{Choropleth map of estimated technical potential for urban
+utility-scale photovoltaics in the
+U.S.:}\label{choropleth-map-of-estimated-technical-potential-for-urban-utility-scale-photovoltaics-in-the-u.s.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{threshold\PYZus{}scale} \PY{o}{=} \PY{n}{split\PYZus{}six}\PY{p}{(}\PY{n}{urbanUtilityScalePV\PYZus{}DF}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{urbanUtilityScalePV\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        
+        \PY{n}{m} \PY{o}{=} \PY{n}{folium}\PY{o}{.}\PY{n}{Map}\PY{p}{(}\PY{n}{location}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{48}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{102}\PY{p}{]}\PY{p}{,} \PY{n}{zoom\PYZus{}start}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}
+        \PY{n}{m}\PY{o}{.}\PY{n}{choropleth}\PY{p}{(}
+            \PY{n}{geo\PYZus{}data}\PY{o}{=}\PY{n}{state\PYZus{}geo}\PY{p}{,}
+            \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{choropleth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{n}{data}\PY{o}{=}\PY{n}{urbanUtilityScalePV\PYZus{}DF}\PY{p}{,}
+            \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{urbanUtilityScalePV\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+            \PY{n}{key\PYZus{}on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{feature.properties.name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{n}{fill\PYZus{}color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{YlGn}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{n}{fill\PYZus{}opacity}\PY{o}{=}\PY{l+m+mf}{0.7}\PY{p}{,}
+            \PY{n}{line\PYZus{}opacity}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{,}
+            \PY{n}{legend\PYZus{}name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Urban Utility Scale PV (Gigawatt Hours)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{n}{threshold\PYZus{}scale}\PY{o}{=}\PY{n}{threshold\PYZus{}scale}\PY{p}{,}
+            \PY{n}{reset}\PY{o}{=}\PY{k+kc}{True}
+        \PY{p}{)}
+        
+        
+        \PY{n}{folium}\PY{o}{.}\PY{n}{LayerControl}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{add\PYZus{}to}\PY{p}{(}\PY{n}{m}\PY{p}{)}
+        
+        \PY{n}{m}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} <folium.folium.Map at 0x111b10550>
+\end{Verbatim}
+            
+    \paragraph{Table of estimated technical potential for urban
+utility-scale photovoltaics by
+state:}\label{table-of-estimated-technical-potential-for-urban-utility-scale-photovoltaics-by-state}
+
+Texas and California have the highest estimated technical potential, a
+result of a combination of good solar resource and large population
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{urbanUtilityScalePV\PYZus{}DF}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{urbanUtilityScalePV\PYZus{}sumDF}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:}                    state  urbanUtilityScalePV\_GWh  urbanUtilityScalePV\_GW  \textbackslash{}
+        0                Alabama                    35850                      20   
+        1                 Alaska                      166                       0   
+        2                Arizona                   121305                      52   
+        3               Arkansas                    28960                      15   
+        4             California                   246008                     111   
+        5               Colorado                    43470                      19   
+        6            Connecticut                     7716                       4   
+        7               Delaware                    14856                       9   
+        8   District of Columbia                        8                       0   
+        9                Florida                    72787                      39   
+        10               Georgia                    43166                      24   
+        11                Hawaii                     3725                       1   
+        12                 Idaho                    23194                      12   
+        13              Illinois                   103551                      63   
+        14               Indiana                    98815                      61   
+        15                  Iowa                    27091                      15   
+        16                Kansas                    31705                      15   
+        17              Kentucky                    26514                      16   
+        18             Louisiana                    55669                      32   
+        19                 Maine                     3216                       1   
+        20              Maryland                    28551                      18   
+        21         Massachusetts                    17469                      10   
+        22              Michigan                    50845                      33   
+        23             Minnesota                    33370                      20   
+        24           Mississippi                    26366                      15   
+        25              Missouri                    30549                      18   
+        26               Montana                    11370                       6   
+        27              Nebraska                    12954                       6   
+        28                Nevada                    24893                      10   
+        29         New Hampshire                     3790                       2   
+        30            New Jersey                    44307                      25   
+        31            New Mexico                    71356                      30   
+        32              New York                    52803                      32   
+        33        North Carolina                    68346                      37   
+        34          North Dakota                     4871                       2   
+        35                  Ohio                    86495                      57   
+        36              Oklahoma                    50040                      25   
+        37                Oregon                    25783                      12   
+        38          Pennsylvania                    56161                      36   
+        39          Rhode Island                     1787                       1   
+        40        South Carolina                    33834                      19   
+        41          South Dakota                     4573                       2   
+        42             Tennessee                    50243                      28   
+        43                 Texas                   294684                     154   
+        44                  Utah                    30492                      14   
+        45               Vermont                     1632                       1   
+        46              Virginia                    27451                      15   
+        47            Washington                    33690                      19   
+        48         West Virginia                     3023                       2   
+        49             Wisconsin                    54938                      34   
+        50               Wyoming                     7232                       3   
+        0              U.S Total                  2231670                    1195   
+        
+            urbanUtilityScalePV\_km2  
+        0                       426  
+        1                         2  
+        2                      1096  
+        3                       332  
+        4                      2320  
+        5                       399  
+        6                       100  
+        7                       189  
+        8                         0  
+        9                       830  
+        10                      505  
+        11                       34  
+        12                      251  
+        13                     1324  
+        14                     1274  
+        15                      324  
+        16                      317  
+        17                      338  
+        18                      674  
+        19                       40  
+        20                      378  
+        21                      228  
+        22                      699  
+        23                      419  
+        24                      317  
+        25                      376  
+        26                      127  
+        27                      141  
+        28                      224  
+        29                       48  
+        30                      527  
+        31                      645  
+        32                      682  
+        33                      789  
+        34                       57  
+        35                     1190  
+        36                      533  
+        37                      270  
+        38                      754  
+        39                       24  
+        40                      397  
+        41                       50  
+        42                      595  
+        43                     3213  
+        44                      292  
+        45                       22  
+        46                      326  
+        47                      402  
+        48                       41  
+        49                      727  
+        50                       75  
+        0                     25343  
+\end{Verbatim}
+            
+    \subsubsection{2. Utility-Scale Photovoltaics
+(Rural)}\label{utility-scale-photovoltaics-rural}
+
+\begin{itemize}
+\tightlist
+\item
+  Definition: large-scale PV deployed outside urban boundaries (the
+  complement of urban utility-scale PV).
+\item
+  State technical potential generation is expressed as:
+  \[ StateMWh = State \Sigma[AvailableLand(km^2)*PowerDensity(48 \frac{MW}{km^2})* StateCapacityFactor(\%)* 8760(HoursPerYear)] \]
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{ruralUtilityScalePV\PYZus{}DF} \PY{o}{=} \PY{n}{inputDF}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ruralUtilityScalePV\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ruralUtilityScalePV\PYZus{}GW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ruralUtilityScalePV\PYZus{}km2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+         \PY{n}{ruralUtilityScalePV\PYZus{}sumDF} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{U.S Total}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PYZbs{}
+                                                    \PY{n}{ruralUtilityScalePV\PYZus{}DF}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ruralUtilityScalePV\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PYZbs{}
+                                                    \PY{n}{ruralUtilityScalePV\PYZus{}DF}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ruralUtilityScalePV\PYZus{}GW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PYZbs{}
+                                                    \PY{n}{ruralUtilityScalePV\PYZus{}DF}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ruralUtilityScalePV\PYZus{}km2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PYZbs{}
+                                                  \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ruralUtilityScalePV\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ruralUtilityScalePV\PYZus{}GW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ruralUtilityScalePV\PYZus{}km2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \paragraph{The total estimated annual technical potential in the United
+States for rural utility-scale
+PV：}\label{the-total-estimated-annual-technical-potential-in-the-united-states-for-rural-utility-scale-pv}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{ruralUtilityScalePV\PYZus{}sumDF}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:}        state  ruralUtilityScalePV\_GWh  ruralUtilityScalePV\_GW  \textbackslash{}
+         0  U.S Total                280613190                  152950   
+         
+            ruralUtilityScalePV\_km2  
+         0                  3186931  
+\end{Verbatim}
+            
+    \paragraph{Choropleth map of estimated technical potential for rural
+utility-scale photovoltaics in the
+U.S.:}\label{choropleth-map-of-estimated-technical-potential-for-rural-utility-scale-photovoltaics-in-the-u.s.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{threshold\PYZus{}scale} \PY{o}{=} \PY{n}{split\PYZus{}six}\PY{p}{(}\PY{n}{ruralUtilityScalePV\PYZus{}DF}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ruralUtilityScalePV\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{m} \PY{o}{=} \PY{n}{folium}\PY{o}{.}\PY{n}{Map}\PY{p}{(}\PY{n}{location}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{48}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{102}\PY{p}{]}\PY{p}{,} \PY{n}{zoom\PYZus{}start}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}
+         \PY{n}{m}\PY{o}{.}\PY{n}{choropleth}\PY{p}{(}
+             \PY{n}{geo\PYZus{}data}\PY{o}{=}\PY{n}{state\PYZus{}geo}\PY{p}{,}
+             \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{choropleth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{data}\PY{o}{=}\PY{n}{ruralUtilityScalePV\PYZus{}DF}\PY{p}{,}
+             \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ruralUtilityScalePV\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+             \PY{n}{key\PYZus{}on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{feature.properties.name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{fill\PYZus{}color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{YlGn}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{fill\PYZus{}opacity}\PY{o}{=}\PY{l+m+mf}{0.7}\PY{p}{,}
+             \PY{n}{line\PYZus{}opacity}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{,}
+             \PY{n}{legend\PYZus{}name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Rural Utility Scale PV (Gigawatt Hours)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{threshold\PYZus{}scale}\PY{o}{=}\PY{n}{threshold\PYZus{}scale}\PY{p}{,}
+             \PY{n}{reset}\PY{o}{=}\PY{k+kc}{True}
+         \PY{p}{)}
+         
+         
+         \PY{n}{folium}\PY{o}{.}\PY{n}{LayerControl}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{add\PYZus{}to}\PY{p}{(}\PY{n}{m}\PY{p}{)}
+         
+         \PY{n}{m}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:} <folium.folium.Map at 0x111c03240>
+\end{Verbatim}
+            
+    \paragraph{Table of estimated technical potential for rural
+utility-scale photovoltaics by
+state:}\label{table-of-estimated-technical-potential-for-rural-utility-scale-photovoltaics-by-state}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{ruralUtilityScalePV\PYZus{}DF}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{ruralUtilityScalePV\PYZus{}sumDF}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:}                    state  ruralUtilityScalePV\_GWh  ruralUtilityScalePV\_GW  \textbackslash{}
+         0                Alabama                  3706838                    2114   
+         1                 Alaska                  8282976                    9005   
+         2                Arizona                 11867693                    5147   
+         3               Arkansas                  4986388                    2747   
+         4             California                  8855917                    4010   
+         5               Colorado                 10238083                    4514   
+         6            Connecticut                    19627                      12   
+         7               Delaware                   272332                     167   
+         8   District of Columbia                        0                       0   
+         9                Florida                  5137346                    2812   
+         10               Georgia                  5492183                    3088   
+         11                Hawaii                    38032                      20   
+         12                 Idaho                  3936847                    2045   
+         13              Illinois                  8090985                    4969   
+         14               Indiana                  4876185                    3018   
+         15                  Iowa                  6994159                    4020   
+         16                Kansas                 14500149                    6959   
+         17              Kentucky                  1823976                    1119   
+         18             Louisiana                  4114605                    2394   
+         19                 Maine                  1100327                     658   
+         20              Maryland                   585949                     373   
+         21         Massachusetts                    82204                      51   
+         22              Michigan                  5215639                    3443   
+         23             Minnesota                 10792814                    6510   
+         24           Mississippi                  4981252                    2879   
+         25              Missouri                  5335268                    3156   
+         26               Montana                  8187341                    4402   
+         27              Nebraska                  9266756                    4869   
+         28                Nevada                  8614454                    3732   
+         29         New Hampshire                    57363                      35   
+         30            New Jersey                   439773                     251   
+         31            New Mexico                 16318543                    7087   
+         32              New York                  1492566                     926   
+         33        North Carolina                  4232789                    2346   
+         34          North Dakota                  9734447                    5482   
+         35                  Ohio                  3626181                    2395   
+         36              Oklahoma                  9341920                    4782   
+         37                Oregon                  3740478                    1884   
+         38          Pennsylvania                   553356                     356   
+         39          Rhode Island                    13636                       8   
+         40        South Carolina                  2754973                    1555   
+         41          South Dakota                 10008873                    5344   
+         42             Tennessee                  2225989                    1266   
+         43                 Texas                 38993581                   20411   
+         44                  Utah                  5184878                    2390   
+         45               Vermont                    54727                      35   
+         46              Virginia                  1882467                    1074   
+         47            Washington                  1738150                     996   
+         48         West Virginia                    52693                      35   
+         49             Wisconsin                  5042258                    3205   
+         50               Wyoming                  5727224                    2854   
+         0              U.S Total                280613190                  152950   
+         
+             ruralUtilityScalePV\_km2  
+         0                     44058  
+         1                    187608  
+         2                    107230  
+         3                     57239  
+         4                     83549  
+         5                     94046  
+         6                       256  
+         7                      3482  
+         8                         0  
+         9                     58596  
+         10                    64343  
+         11                      430  
+         12                    42612  
+         13                   103524  
+         14                    62890  
+         15                    83762  
+         16                   144995  
+         17                    23319  
+         18                    49876  
+         19                    13722  
+         20                     7772  
+         21                     1074  
+         22                    71740  
+         23                   135627  
+         24                    59996  
+         25                    65766  
+         26                    91724  
+         27                   101456  
+         28                    77751  
+         29                      741  
+         30                     5231  
+         31                   147652  
+         32                    19294  
+         33                    48892  
+         34                   114227  
+         35                    49908  
+         36                    99640  
+         37                    39266  
+         38                     7429  
+         39                      184  
+         40                    32398  
+         41                   111350  
+         42                    26395  
+         43                   425230  
+         44                    49797  
+         45                      739  
+         46                    22377  
+         47                    20758  
+         48                      729  
+         49                    66788  
+         50                    59463  
+         0                   3186931  
+\end{Verbatim}
+            
+    \subsubsection{3. Rooftop Photovoltaics}\label{rooftop-photovoltaics}
+
+\begin{itemize}
+\tightlist
+\item
+  Definition: We obtained rooftop PV estimates from Denholm and Margolis
+  (2008b), who obtained floor space estimates for commercial and
+  residential buildings from McGraw-Hill and scaled these to estimate a
+  building footprint based on the number of floors.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{rooftopPV\PYZus{}DF} \PY{o}{=} \PY{n}{inputDF}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rooftopPV\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rooftopPV\PYZus{}GW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+         \PY{n}{rooftopPV\PYZus{}sumDF} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{U.S Total}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PYZbs{}
+                                                    \PY{n}{rooftopPV\PYZus{}DF}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rooftopPV\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PYZbs{}
+                                                    \PY{n}{rooftopPV\PYZus{}DF}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rooftopPV\PYZus{}GW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{]}\PY{p}{,}\PYZbs{}
+                                                  \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rooftopPV\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rooftopPV\PYZus{}GW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \paragraph{The total estimated annual technical potential in the United
+States for Rooftop Photovoltaics
+：}\label{the-total-estimated-annual-technical-potential-in-the-united-states-for-rooftop-photovoltaics}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{rooftopPV\PYZus{}sumDF}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:}        state  rooftopPV\_GWh  rooftopPV\_GW
+         0  U.S Total       818711.0           639
+\end{Verbatim}
+            
+    \paragraph{Choropleth map of estimated technical potential for rooftop
+photovoltaics in the
+U.S.:}\label{choropleth-map-of-estimated-technical-potential-for-rooftop-photovoltaics-in-the-u.s.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{threshold\PYZus{}scale} \PY{o}{=} \PY{n}{split\PYZus{}six}\PY{p}{(}\PY{n}{rooftopPV\PYZus{}DF}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rooftopPV\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{m} \PY{o}{=} \PY{n}{folium}\PY{o}{.}\PY{n}{Map}\PY{p}{(}\PY{n}{location}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{48}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{102}\PY{p}{]}\PY{p}{,} \PY{n}{zoom\PYZus{}start}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}
+         \PY{n}{m}\PY{o}{.}\PY{n}{choropleth}\PY{p}{(}
+             \PY{n}{geo\PYZus{}data}\PY{o}{=}\PY{n}{state\PYZus{}geo}\PY{p}{,}
+             \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{choropleth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{data}\PY{o}{=}\PY{n}{rooftopPV\PYZus{}DF}\PY{p}{,}
+             \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rooftopPV\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+             \PY{n}{key\PYZus{}on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{feature.properties.name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{fill\PYZus{}color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{YlGn}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{fill\PYZus{}opacity}\PY{o}{=}\PY{l+m+mf}{0.7}\PY{p}{,}
+             \PY{n}{line\PYZus{}opacity}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{,}
+             \PY{n}{legend\PYZus{}name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Rooftop PV (Gigawatt Hours)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{threshold\PYZus{}scale}\PY{o}{=}\PY{n}{threshold\PYZus{}scale}\PY{p}{,}
+             \PY{n}{reset}\PY{o}{=}\PY{k+kc}{True}
+         \PY{p}{)}
+         
+         
+         \PY{n}{folium}\PY{o}{.}\PY{n}{LayerControl}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{add\PYZus{}to}\PY{p}{(}\PY{n}{m}\PY{p}{)}
+         
+         \PY{n}{m}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:} <folium.folium.Map at 0x111d63358>
+\end{Verbatim}
+            
+    \paragraph{Table of estimated technical potential for rooftop
+photovoltaics by
+state:}\label{table-of-estimated-technical-potential-for-rooftop-photovoltaics-by-state}
+
+States with the largest technical potential typically have the largest
+populations. California has the highest technical potential of 106 TWh
+due to its mix of high population and relatively good solar resource.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{rooftopPV\PYZus{}DF}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{rooftopPV\PYZus{}sumDF}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:}                    state  rooftopPV\_GWh  rooftopPV\_GW
+         0                Alabama        15475.0            12
+         1                 Alaska            0.0             1
+         2                Arizona        22736.0            14
+         3               Arkansas         8484.0             6
+         4             California       106411.0            75
+         5               Colorado        16162.0            11
+         6            Connecticut         6616.0             5
+         7               Delaware         2185.0             1
+         8   District of Columbia         2490.0             2
+         9                Florida        63986.0            49
+         10               Georgia        31116.0            24
+         11                Hawaii            0.0             2
+         12                 Idaho         4051.0             3
+         13              Illinois        30086.0            26
+         14               Indiana        17151.0            14
+         15                  Iowa         8646.0             7
+         16                Kansas         8962.0             6
+         17              Kentucky        12312.0            10
+         18             Louisiana        14368.0            11
+         19                 Maine         2443.0             2
+         20              Maryland        14849.0            12
+         21         Massachusetts        11722.0            10
+         22              Michigan        23527.0            21
+         23             Minnesota        14321.0            12
+         24           Mississippi         8614.0             6
+         25              Missouri        16159.0            13
+         26               Montana         2194.0             1
+         27              Nebraska         5336.0             4
+         28                Nevada        10767.0             7
+         29         New Hampshire         2298.0             2
+         30            New Jersey        15767.0            13
+         31            New Mexico         6513.0             4
+         32              New York        28779.0            25
+         33        North Carolina        28419.0            23
+         34          North Dakota         1916.0             1
+         35                  Ohio        30064.0            27
+         36              Oklahoma        12442.0             9
+         37                Oregon         8322.0             7
+         38          Pennsylvania        22215.0            19
+         39          Rhode Island         1710.0             1
+         40        South Carolina        14412.0            11
+         41          South Dakota         2082.0             1
+         42             Tennessee        19685.0            16
+         43                 Texas        78716.0            60
+         44                  Utah         7513.0             5
+         45               Vermont         1115.0             1
+         46              Virginia        22266.0            18
+         47            Washington        13599.0            13
+         48         West Virginia         4220.0             3
+         49             Wisconsin        13939.0            12
+         50               Wyoming         1550.0             1
+         0              U.S Total       818711.0           639
+\end{Verbatim}
+            
+    \subsubsection{4. Concentrating Solar Power
+(CSP)}\label{concentrating-solar-power-csp}
+
+\begin{itemize}
+\tightlist
+\item
+  Definition: power from a utility-scale solar power facility in which
+  the solar heat energy is collected in a central location.\\
+\item
+  State technical potential generation is expressed as:
+  \[ StateMWh = State \Sigma[AvailableLand(km^2)*PowerDensity(32.895 \frac{MW}{km^2})* StateCapacityFactor(\%)* 8760(HoursPerYear)] \]
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{CSP\PYZus{}DF} \PY{o}{=} \PY{n}{inputDF}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CSP\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CSP\PYZus{}GW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CSP\PYZus{}km2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+         \PY{n}{CSP\PYZus{}sumDF} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{U.S Total}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PYZbs{}
+                                                    \PY{n}{CSP\PYZus{}DF}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CSP\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PYZbs{}
+                                                    \PY{n}{CSP\PYZus{}DF}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CSP\PYZus{}GW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PYZbs{}
+                                                    \PY{n}{CSP\PYZus{}DF}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CSP\PYZus{}km2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PYZbs{}
+                                                  \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CSP\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CSP\PYZus{}GW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CSP\PYZus{}km2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \paragraph{The total estimated annual technical potential in the United
+States for Concentrating Solar
+Power：}\label{the-total-estimated-annual-technical-potential-in-the-united-states-for-concentrating-solar-power}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{CSP\PYZus{}sumDF}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}19}]:}        state    CSP\_GWh  CSP\_GW  CSP\_km2
+         0  U.S Total  116146234   38057  1157199
+\end{Verbatim}
+            
+    \paragraph{Choropleth map of estimated technical potential for
+Concentrating Solar Power in the
+U.S.:}\label{choropleth-map-of-estimated-technical-potential-for-concentrating-solar-power-in-the-u.s.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{threshold\PYZus{}scale} \PY{o}{=} \PY{n}{split\PYZus{}six}\PY{p}{(}\PY{n}{CSP\PYZus{}DF}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CSP\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{m} \PY{o}{=} \PY{n}{folium}\PY{o}{.}\PY{n}{Map}\PY{p}{(}\PY{n}{location}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{48}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{102}\PY{p}{]}\PY{p}{,} \PY{n}{zoom\PYZus{}start}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}
+         \PY{n}{m}\PY{o}{.}\PY{n}{choropleth}\PY{p}{(}
+             \PY{n}{geo\PYZus{}data}\PY{o}{=}\PY{n}{state\PYZus{}geo}\PY{p}{,}
+             \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{choropleth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{data}\PY{o}{=}\PY{n}{CSP\PYZus{}DF}\PY{p}{,}
+             \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CSP\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+             \PY{n}{key\PYZus{}on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{feature.properties.name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{fill\PYZus{}color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{YlGn}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{fill\PYZus{}opacity}\PY{o}{=}\PY{l+m+mf}{0.7}\PY{p}{,}
+             \PY{n}{line\PYZus{}opacity}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{,}
+             \PY{n}{legend\PYZus{}name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Concentrating Solar Power (Gigawatt Hours)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{threshold\PYZus{}scale}\PY{o}{=}\PY{n}{threshold\PYZus{}scale}\PY{p}{,}
+             \PY{n}{reset}\PY{o}{=}\PY{k+kc}{True}
+         \PY{p}{)}
+         
+         
+         \PY{n}{folium}\PY{o}{.}\PY{n}{LayerControl}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{add\PYZus{}to}\PY{p}{(}\PY{n}{m}\PY{p}{)}
+         
+         \PY{n}{m}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:} <folium.folium.Map at 0x111e38978>
+\end{Verbatim}
+            
+    \paragraph{Table of estimated technical potential for Concentrating
+Solar Power by
+state:}\label{table-of-estimated-technical-potential-for-concentrating-solar-power-by-state}
+
+Technical potential for CSP exists predominately in the Southwest.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{CSP\PYZus{}DF}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{CSP\PYZus{}sumDF}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}21}]:}                    state    CSP\_GWh  CSP\_GW  CSP\_km2
+         0                Alabama          0       0        0
+         1                 Alaska          0       0        0
+         2                Arizona   12544333    3527   107238
+         3               Arkansas          0       0        0
+         4             California    8490916    2725    82859
+         5               Colorado    9154524    3097    94173
+         6            Connecticut          0       0        0
+         7               Delaware          0       0        0
+         8   District of Columbia          0       0        0
+         9                Florida        358       0        3
+         10               Georgia          0       0        0
+         11                Hawaii      15369       5      168
+         12                 Idaho    3502877    1267    38523
+         13              Illinois          0       0        0
+         14               Indiana          0       0        0
+         15                  Iowa          0       0        0
+         16                Kansas    7974255    2884    87697
+         17              Kentucky          0       0        0
+         18             Louisiana          0       0        0
+         19                 Maine          0       0        0
+         20              Maryland          0       0        0
+         21         Massachusetts          0       0        0
+         22              Michigan          0       0        0
+         23             Minnesota          0       0        0
+         24           Mississippi          0       0        0
+         25              Missouri          0       0        0
+         26               Montana    1540287     557    16939
+         27              Nebraska    4846929    1753    53304
+         28                Nevada    8295752    2557    77759
+         29         New Hampshire          0       0        0
+         30            New Jersey          0       0        0
+         31            New Mexico   16812349    4860   147747
+         32              New York          0       0        0
+         33        North Carolina          0       0        0
+         34          North Dakota      36049      13      396
+         35                  Ohio          0       0        0
+         36              Oklahoma    5068036    1812    55113
+         37                Oregon    2812126    1017    30926
+         38          Pennsylvania          0       0        0
+         39          Rhode Island          0       0        0
+         40        South Carolina          0       0        0
+         41          South Dakota    1629659     589    17922
+         42             Tennessee          0       0        0
+         43                 Texas   22786749    7743   235398
+         44                  Utah    5067546    1638    49799
+         45               Vermont          0       0        0
+         46              Virginia          0       0        0
+         47            Washington     161713      58     1778
+         48         West Virginia          0       0        0
+         49             Wisconsin          0       0        0
+         50               Wyoming    5406407    1955    59457
+         0              U.S Total  116146234   38057  1157199
+\end{Verbatim}
+            
+    \subsubsection{5. Onshore Wind Power}\label{onshore-wind-power}
+
+\begin{itemize}
+\tightlist
+\item
+  Definition: wind resource at 80 meters(m) height above surface that
+  results in an annual average gross capacity factor of 30\% (net
+  capacity factor of 25.5\%), using typical utility-scale wind turbine
+  power curves.
+\item
+  We estimate annual generation by assuming a power density of 5
+  MW/km\^{}2(DOE EERE 2008)10 and 15\% energy losses to calculate net
+  capacity factor.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{onshoreWind\PYZus{}DF} \PY{o}{=} \PY{n}{inputDF}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{onshoreWind\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{onshoreWind\PYZus{}GW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{onshoreWind\PYZus{}km2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+         \PY{n}{onshoreWind\PYZus{}sumDF} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{U.S Total}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PYZbs{}
+                                                    \PY{n}{onshoreWind\PYZus{}DF}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{onshoreWind\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PYZbs{}
+                                                    \PY{n}{onshoreWind\PYZus{}DF}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{onshoreWind\PYZus{}GW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PYZbs{}
+                                                    \PY{n}{onshoreWind\PYZus{}DF}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{onshoreWind\PYZus{}km2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PYZbs{}
+                                                  \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{onshoreWind\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{onshoreWind\PYZus{}GW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{onshoreWind\PYZus{}km2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \paragraph{The total estimated annual technical potential in the United
+States for Onshore Wind
+Power：}\label{the-total-estimated-annual-technical-potential-in-the-united-states-for-onshore-wind-power}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{onshoreWind\PYZus{}sumDF}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}23}]:}        state  onshoreWind\_GWh  onshoreWind\_GW  onshoreWind\_km2
+         0  U.S Total         32783975           10937          2190929
+\end{Verbatim}
+            
+    \paragraph{Choropleth map of estimated technical potential for Onshore
+Wind Power in the
+U.S.:}\label{choropleth-map-of-estimated-technical-potential-for-onshore-wind-power-in-the-u.s.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{threshold\PYZus{}scale} \PY{o}{=} \PY{n}{split\PYZus{}six}\PY{p}{(}\PY{n}{onshoreWind\PYZus{}DF}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{onshoreWind\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{m} \PY{o}{=} \PY{n}{folium}\PY{o}{.}\PY{n}{Map}\PY{p}{(}\PY{n}{location}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{48}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{102}\PY{p}{]}\PY{p}{,} \PY{n}{zoom\PYZus{}start}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}
+         \PY{n}{m}\PY{o}{.}\PY{n}{choropleth}\PY{p}{(}
+             \PY{n}{geo\PYZus{}data}\PY{o}{=}\PY{n}{state\PYZus{}geo}\PY{p}{,}
+             \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{choropleth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{data}\PY{o}{=}\PY{n}{onshoreWind\PYZus{}DF}\PY{p}{,}
+             \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{onshoreWind\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+             \PY{n}{key\PYZus{}on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{feature.properties.name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{fill\PYZus{}color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{YlGn}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{fill\PYZus{}opacity}\PY{o}{=}\PY{l+m+mf}{0.7}\PY{p}{,}
+             \PY{n}{line\PYZus{}opacity}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{,}
+             \PY{n}{legend\PYZus{}name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Onshore Wind Power (Gigawatt Hours)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{threshold\PYZus{}scale}\PY{o}{=}\PY{n}{threshold\PYZus{}scale}\PY{p}{,}
+             \PY{n}{reset}\PY{o}{=}\PY{k+kc}{True}
+         \PY{p}{)}
+         
+         
+         \PY{n}{folium}\PY{o}{.}\PY{n}{LayerControl}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{add\PYZus{}to}\PY{p}{(}\PY{n}{m}\PY{p}{)}
+         
+         \PY{n}{m}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}24}]:} <folium.folium.Map at 0x111f0afd0>
+\end{Verbatim}
+            
+    \paragraph{Table of estimated technical potential for Onshore Wind Power
+by
+state:}\label{table-of-estimated-technical-potential-for-onshore-wind-power-by-state}
+
+Technical potential for onshore wind power is largest in the central
+Great Plains and lowest in the southeastern United States.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{onshoreWind\PYZus{}DF}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{onshoreWind\PYZus{}sumDF}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}25}]:}                    state  onshoreWind\_GWh  onshoreWind\_GW  onshoreWind\_km2
+         0                Alabama              283               0               23
+         1                 Alaska          1373433             493            98669
+         2                Arizona            26036              10             2180
+         3               Arkansas            22892               9             1840
+         4             California            89862              34             6822
+         5               Colorado          1096035             387            77443
+         6            Connecticut               61               0                5
+         7               Delaware               21               0                1
+         8   District of Columbia                0               0                0
+         9                Florida                0               0                0
+         10               Georgia              322               0               26
+         11                Hawaii             7786               2              493
+         12                 Idaho            44319              18             3615
+         13              Illinois           649467             249            49976
+         14               Indiana           377603             148            29645
+         15                  Iowa          1723587             570           114142
+         16                Kansas          3101575             952           190474
+         17              Kentucky              147               0               12
+         18             Louisiana              934               0               81
+         19                 Maine            28742              11             2250
+         20              Maryland             3631               1              296
+         21         Massachusetts             2827               1              205
+         22              Michigan           143907              59            11808
+         23             Minnesota          1428524             489            97854
+         24           Mississippi                0               0                0
+         25              Missouri           689519             274            54871
+         26               Montana          2746271             944           188800
+         27              Nebraska          3011252             917           183599
+         28                Nevada            17709               7             1449
+         29         New Hampshire             5706               2              427
+         30            New Jersey              317               0               26
+         31            New Mexico          1399156             492            98416
+         32              New York            63565              25             5156
+         33        North Carolina             2037               0              161
+         34          North Dakota          2537824             770           154039
+         35                  Ohio           129142              54            10983
+         36              Oklahoma          1521651             516           103364
+         37                Oregon            68766              27             5420
+         38          Pennsylvania             8230               3              661
+         39          Rhode Island              129               0                9
+         40        South Carolina              427               0               37
+         41          South Dakota          2901858             882           176482
+         42             Tennessee              765               0               61
+         43                 Texas          5552399            1901           380305
+         44                  Utah            31552              13             2620
+         45               Vermont             7795               2              589
+         46              Virginia             4589               1              358
+         47            Washington            47249              18             3695
+         48         West Virginia             4951               1              376
+         49             Wisconsin           255266             103            20751
+         50               Wyoming          1653856             552           110414
+         0              U.S Total         32783975           10937          2190929
+\end{Verbatim}
+            
+    \subsubsection{6. Offshore Wind Power}\label{offshore-wind-power}
+
+\begin{itemize}
+\tightlist
+\item
+  Definition: annual average wind speed greater than or equal to 6.4
+  meters per second (m/s) at 90 m height above surface.
+\item
+  Our annual generation estimates assume a power density of 5 MW/km\^{}2
+  and capacity factors based on wind speed interval and depth-based wind
+  farm configurations to account for anchoring and stabilization for the
+  turbines as developed by NREL analysts for use in the ReEDS model
+  (Musial and Ram 2010).
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{offshoreWind\PYZus{}DF} \PY{o}{=} \PY{n}{inputDF}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{offshoreWind\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{offshoreWind\PYZus{}GW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{offshoreWind\PYZus{}km2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+         \PY{n}{offshoreWind\PYZus{}sumDF} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{U.S Total}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PYZbs{}
+                                                    \PY{n}{offshoreWind\PYZus{}DF}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{offshoreWind\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PYZbs{}
+                                                    \PY{n}{offshoreWind\PYZus{}DF}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{offshoreWind\PYZus{}GW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PYZbs{}
+                                                    \PY{n}{offshoreWind\PYZus{}DF}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{offshoreWind\PYZus{}km2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PYZbs{}
+                                                  \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{offshoreWind\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{offshoreWind\PYZus{}GW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{offshoreWind\PYZus{}km2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \paragraph{The total estimated annual technical potential in the United
+States for Offshore Wind
+Power：}\label{the-total-estimated-annual-technical-potential-in-the-united-states-for-offshore-wind-power}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{offshoreWind\PYZus{}sumDF}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}27}]:}        state  offshoreWind\_GWh  offshoreWind\_GW  offshoreWind\_km2
+         0  U.S Total        16975788.0           4210.0          844688.0
+\end{Verbatim}
+            
+    \paragraph{Choropleth map of estimated technical potential for Offshore
+Wind Power in the
+U.S.:}\label{choropleth-map-of-estimated-technical-potential-for-offshore-wind-power-in-the-u.s.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{threshold\PYZus{}scale} \PY{o}{=} \PY{n}{split\PYZus{}six}\PY{p}{(}\PY{n}{offshoreWind\PYZus{}DF}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{offshoreWind\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{m} \PY{o}{=} \PY{n}{folium}\PY{o}{.}\PY{n}{Map}\PY{p}{(}\PY{n}{location}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{48}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{102}\PY{p}{]}\PY{p}{,} \PY{n}{zoom\PYZus{}start}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}
+         \PY{n}{m}\PY{o}{.}\PY{n}{choropleth}\PY{p}{(}
+             \PY{n}{geo\PYZus{}data}\PY{o}{=}\PY{n}{state\PYZus{}geo}\PY{p}{,}
+             \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{choropleth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{data}\PY{o}{=}\PY{n}{offshoreWind\PYZus{}DF}\PY{p}{,}
+             \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{offshoreWind\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+             \PY{n}{key\PYZus{}on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{feature.properties.name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{fill\PYZus{}color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{YlGn}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{fill\PYZus{}opacity}\PY{o}{=}\PY{l+m+mf}{0.7}\PY{p}{,}
+             \PY{n}{line\PYZus{}opacity}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{,}
+             \PY{n}{legend\PYZus{}name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Offshore Wind Power  (Gigawatt Hours)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{threshold\PYZus{}scale}\PY{o}{=}\PY{n}{threshold\PYZus{}scale}\PY{p}{,}
+             \PY{n}{reset}\PY{o}{=}\PY{k+kc}{True}
+         \PY{p}{)}
+         
+         
+         \PY{n}{folium}\PY{o}{.}\PY{n}{LayerControl}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{add\PYZus{}to}\PY{p}{(}\PY{n}{m}\PY{p}{)}
+         
+         \PY{n}{m}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}28}]:} <folium.folium.Map at 0x111f0aa90>
+\end{Verbatim}
+            
+    \paragraph{Table of estimated technical potential for Offshore Wind
+Power by
+state:}\label{table-of-estimated-technical-potential-for-offshore-wind-power-by-state}
+
+Technical potential for offshore wind power is present in significant
+quantities in all offshore regions of the United States.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{offshoreWind\PYZus{}DF}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{offshoreWind\PYZus{}sumDF}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}29}]:}                    state  offshoreWind\_GWh  offshoreWind\_GW  offshoreWind\_km2
+         0                Alabama               0.0              0.0               0.0
+         1                 Alaska               0.0              0.0               0.0
+         2                Arizona               0.0              0.0               0.0
+         3               Arkansas               0.0              0.0               0.0
+         4             California         2662579.0            654.0          130966.0
+         5               Colorado               0.0              0.0               0.0
+         6            Connecticut           26545.0              7.0            1434.0
+         7               Delaware           60654.0             15.0            3007.0
+         8   District of Columbia               0.0              0.0               0.0
+         9                Florida           34684.0              9.0            1929.0
+         10               Georgia          220807.0             58.0           11725.0
+         11                Hawaii         2836735.0            736.0          147389.0
+         12                 Idaho               0.0              0.0               0.0
+         13              Illinois           66070.0             15.0            3174.0
+         14               Indiana             165.0              0.0               9.0
+         15                  Iowa               0.0              0.0               0.0
+         16                Kansas               0.0              0.0               0.0
+         17              Kentucky               0.0              0.0               0.0
+         18             Louisiana         1200698.0            340.0           68122.0
+         19                 Maine          631960.0            147.0           29483.0
+         20              Maryland          200852.0             51.0           10381.0
+         21         Massachusetts          799344.0            184.0           36815.0
+         22              Michigan         1739800.0            422.0           84515.0
+         23             Minnesota          100454.0             29.0            5842.0
+         24           Mississippi           10172.0              3.0             642.0
+         25              Missouri               0.0              0.0               0.0
+         26               Montana               0.0              0.0               0.0
+         27              Nebraska               0.0              0.0               0.0
+         28                Nevada               0.0              0.0               0.0
+         29         New Hampshire           14477.0              3.0             691.0
+         30            New Jersey          429807.0            101.0           20386.0
+         31            New Mexico               0.0              0.0               0.0
+         32              New York          614279.0            146.0           29215.0
+         33        North Carolina         1269626.0            306.0           61204.0
+         34          North Dakota               0.0              0.0               0.0
+         35                  Ohio          170561.0             41.0            8360.0
+         36              Oklahoma               0.0              0.0               0.0
+         37                Oregon          962722.0            225.0           45001.0
+         38          Pennsylvania           23571.0              5.0            1134.0
+         39          Rhode Island           89114.0             20.0            4193.0
+         40        South Carolina          542218.0            133.0           26643.0
+         41          South Dakota               0.0              0.0               0.0
+         42             Tennessee               0.0              0.0               0.0
+         43                 Texas         1101062.0            271.0           54288.0
+         44                  Utah               0.0              0.0               0.0
+         45               Vermont               0.0              0.0               0.0
+         46              Virginia          361053.0             89.0           17814.0
+         47            Washington          488025.0            120.0           24192.0
+         48         West Virginia               0.0              0.0               0.0
+         49             Wisconsin          317754.0             80.0           16134.0
+         50               Wyoming               0.0              0.0               0.0
+         0              U.S Total        16975788.0           4210.0          844688.0
+\end{Verbatim}
+            
+    \subsubsection{7. Biopower (Solid and
+Gaseous)}\label{biopower-solid-and-gaseous}
+
+\begin{itemize}
+\tightlist
+\item
+  Definition: We obtained county-level estimates of solid biomass
+  resource for crop, forest, primary/secondary mill residues, and urban
+  wood waste from Milbrandt (2005, updated in 2008) who reported the
+  estimates in bone-dry tonnes (BDT) per year.
+\end{itemize}
+
+    \paragraph{7.a. Biopower of Solid}\label{a.-biopower-of-solid}
+
+\begin{itemize}
+\tightlist
+\item
+  We calculate technical potential energy generation assuming 1.1
+  MWh/BDT, which represents an average solid biomass system output with
+  an industry-average conversion efficiency of 20\%, and a higher
+  heating value (HHV) of 8,500 BTU/lb.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n}{biopowerSolid\PYZus{}DF} \PY{o}{=} \PY{n}{inputDF}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{biopowerSolid\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{biopowerSolid\PYZus{}GW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{biopowerSolid\PYZus{}BDT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+         \PY{n}{biopowerSolid\PYZus{}sumDF} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{U.S Total}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PYZbs{}
+                                                    \PY{n}{biopowerSolid\PYZus{}DF}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{biopowerSolid\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PYZbs{}
+                                                    \PY{n}{biopowerSolid\PYZus{}DF}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{biopowerSolid\PYZus{}GW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PYZbs{}
+                                                    \PY{n}{biopowerSolid\PYZus{}DF}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{biopowerSolid\PYZus{}BDT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PYZbs{}
+                                                  \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{biopowerSolid\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{biopowerSolid\PYZus{}GW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{biopowerSolid\PYZus{}BDT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \paragraph{The total estimated annual technical potential in the United
+States for Biopower of Solid
+：}\label{the-total-estimated-annual-technical-potential-in-the-united-states-for-biopower-of-solid}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{n}{biopowerSolid\PYZus{}sumDF}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}31}]:}        state  biopowerSolid\_GWh  biopowerSolid\_GW  biopowerSolid\_BDT
+         0  U.S Total             399750                30          363430992
+\end{Verbatim}
+            
+    \paragraph{Choropleth map of estimated technical potential for Biopower
+of Solid in the
+U.S.:}\label{choropleth-map-of-estimated-technical-potential-for-biopower-of-solid-in-the-u.s.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{n}{threshold\PYZus{}scale} \PY{o}{=} \PY{n}{split\PYZus{}six}\PY{p}{(}\PY{n}{biopowerSolid\PYZus{}DF}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{biopowerSolid\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{m} \PY{o}{=} \PY{n}{folium}\PY{o}{.}\PY{n}{Map}\PY{p}{(}\PY{n}{location}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{48}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{102}\PY{p}{]}\PY{p}{,} \PY{n}{zoom\PYZus{}start}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}
+         \PY{n}{m}\PY{o}{.}\PY{n}{choropleth}\PY{p}{(}
+             \PY{n}{geo\PYZus{}data}\PY{o}{=}\PY{n}{state\PYZus{}geo}\PY{p}{,}
+             \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{choropleth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{data}\PY{o}{=}\PY{n}{biopowerSolid\PYZus{}DF}\PY{p}{,}
+             \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{biopowerSolid\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+             \PY{n}{key\PYZus{}on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{feature.properties.name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{fill\PYZus{}color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{YlGn}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{fill\PYZus{}opacity}\PY{o}{=}\PY{l+m+mf}{0.7}\PY{p}{,}
+             \PY{n}{line\PYZus{}opacity}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{,}
+             \PY{n}{legend\PYZus{}name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Biopower of Solid (Gigawatt Hours)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{threshold\PYZus{}scale}\PY{o}{=}\PY{n}{threshold\PYZus{}scale}\PY{p}{,}
+             \PY{n}{reset}\PY{o}{=}\PY{k+kc}{True}
+         \PY{p}{)}
+         
+         
+         \PY{n}{folium}\PY{o}{.}\PY{n}{LayerControl}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{add\PYZus{}to}\PY{p}{(}\PY{n}{m}\PY{p}{)}
+         
+         \PY{n}{m}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}32}]:} <folium.folium.Map at 0x111fd2c50>
+\end{Verbatim}
+            
+    \paragraph{Table of estimated technical potential for Biopower of Solid
+by
+state:}\label{table-of-estimated-technical-potential-for-biopower-of-solid-by-state}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n}{biopowerSolid\PYZus{}DF}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{biopowerSolid\PYZus{}sumDF}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}33}]:}                    state  biopowerSolid\_GWh  biopowerSolid\_GW  \textbackslash{}
+         0                Alabama              11193                 1   
+         1                 Alaska                513                 0   
+         2                Arizona               1087                 0   
+         3               Arkansas              14381                 1   
+         4             California              12408                 1   
+         5               Colorado               2913                 0   
+         6            Connecticut                494                 0   
+         7               Delaware                512                 0   
+         8   District of Columbia                 61                 0   
+         9                Florida               9664                 1   
+         10               Georgia              14682                 1   
+         11                Hawaii                524                 0   
+         12                 Idaho               5775                 0   
+         13              Illinois              27738                 3   
+         14               Indiana              14941                 1   
+         15                  Iowa              27502                 3   
+         16                Kansas              12104                 1   
+         17              Kentucky               7048                 0   
+         18             Louisiana              14016                 1   
+         19                 Maine               4273                 0   
+         20              Maryland               2102                 0   
+         21         Massachusetts               1045                 0   
+         22              Michigan               9358                 1   
+         23             Minnesota              20361                 2   
+         24           Mississippi              14209                 1   
+         25              Missouri              11837                 1   
+         26               Montana               4924                 0   
+         27              Nebraska              16271                 2   
+         28                Nevada                288                 0   
+         29         New Hampshire                953                 0   
+         30            New Jersey               1212                 0   
+         31            New Mexico                595                 0   
+         32              New York               5558                 0   
+         33        North Carolina              12869                 1   
+         34          North Dakota               8186                 1   
+         35                  Ohio              11009                 1   
+         36              Oklahoma               4128                 0   
+         37                Oregon              13793                 1   
+         38          Pennsylvania               6313                 0   
+         39          Rhode Island                143                 0   
+         40        South Carolina               6984                 0   
+         41          South Dakota               8380                 1   
+         42             Tennessee               6095                 0   
+         43                 Texas              16077                 2   
+         44                  Utah                433                 0   
+         45               Vermont                491                 0   
+         46              Virginia               7866                 0   
+         47            Washington              12311                 1   
+         48         West Virginia               2406                 0   
+         49             Wisconsin              11221                 1   
+         50               Wyoming                503                 0   
+         0              U.S Total             399750                30   
+         
+             biopowerSolid\_BDT  
+         0            10175869  
+         1              466797  
+         2              988705  
+         3            13074040  
+         4            11280245  
+         5             2648462  
+         6              449775  
+         7              465802  
+         8               56180  
+         9             8785824  
+         10           13347586  
+         11             476459  
+         12            5250560  
+         13           25216443  
+         14           13583318  
+         15           25002253  
+         16           11004052  
+         17            6407337  
+         18           12741856  
+         19            3884583  
+         20            1911045  
+         21             950308  
+         22            8507307  
+         23           18510689  
+         24           12918114  
+         25           10761509  
+         26            4477082  
+         27           14792723  
+         28             262613  
+         29             867153  
+         30            1101910  
+         31             541274  
+         32            5053081  
+         33           11699887  
+         34            7441887  
+         35           10008282  
+         36            3753137  
+         37           12539176  
+         38            5739609  
+         39             130452  
+         40            6349820  
+         41            7618309  
+         42            5541359  
+         43           14615951  
+         44             394530  
+         45             447268  
+         46            7151120  
+         47           11192456  
+         48            2188057  
+         49           10201440  
+         50             457298  
+         0           363430992  
+\end{Verbatim}
+            
+    \paragraph{7.b. Biopower of Gaseous}\label{b.-biopower-of-gaseous}
+
+\begin{itemize}
+\tightlist
+\item
+  We obtained county-level estimates of gaseous biomass (methane
+  emissions), from animal manure, domestic wastewater treatment plants,
+  and landfills; all estimates were reported in tonnes of methane (CH4)
+  per year.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{n}{biopowerGaseous\PYZus{}DF} \PY{o}{=} \PY{n}{inputDF}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{biopowerGaseous\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{biopowerGaseous\PYZus{}GW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{biopowerGaseous\PYZus{}Tonnes\PYZhy{}CH4}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+         \PY{n}{biopowerGaseous\PYZus{}sumDF} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{U.S Total}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PYZbs{}
+                                                    \PY{n}{biopowerGaseous\PYZus{}DF}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{biopowerGaseous\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PYZbs{}
+                                                    \PY{n}{biopowerGaseous\PYZus{}DF}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{biopowerGaseous\PYZus{}GW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PYZbs{}
+                                                    \PY{n}{biopowerGaseous\PYZus{}DF}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{biopowerGaseous\PYZus{}Tonnes\PYZhy{}CH4}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PYZbs{}
+                                                  \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{biopowerGaseous\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{biopowerGaseous\PYZus{}GW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{biopowerGaseous\PYZus{}Tonnes\PYZhy{}CH4}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \paragraph{The total estimated annual technical potential in the United
+States for Biopower of
+Gaseous：}\label{the-total-estimated-annual-technical-potential-in-the-united-states-for-biopower-of-gaseous}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{n}{biopowerGaseous\PYZus{}sumDF}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}35}]:}        state  biopowerGaseous\_GWh  biopowerGaseous\_GW  \textbackslash{}
+         0  U.S Total                88528                   1   
+         
+            biopowerGaseous\_Tonnes-CH4  
+         0                    18840706  
+\end{Verbatim}
+            
+    \paragraph{Choropleth map of estimated technical potential for Biopower
+of Gaseous in the
+U.S.:}\label{choropleth-map-of-estimated-technical-potential-for-biopower-of-gaseous-in-the-u.s.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n}{threshold\PYZus{}scale} \PY{o}{=} \PY{n}{split\PYZus{}six}\PY{p}{(}\PY{n}{biopowerGaseous\PYZus{}DF}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{biopowerGaseous\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{m} \PY{o}{=} \PY{n}{folium}\PY{o}{.}\PY{n}{Map}\PY{p}{(}\PY{n}{location}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{48}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{102}\PY{p}{]}\PY{p}{,} \PY{n}{zoom\PYZus{}start}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}
+         \PY{n}{m}\PY{o}{.}\PY{n}{choropleth}\PY{p}{(}
+             \PY{n}{geo\PYZus{}data}\PY{o}{=}\PY{n}{state\PYZus{}geo}\PY{p}{,}
+             \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{choropleth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{data}\PY{o}{=}\PY{n}{biopowerGaseous\PYZus{}DF}\PY{p}{,}
+             \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{biopowerGaseous\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+             \PY{n}{key\PYZus{}on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{feature.properties.name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{fill\PYZus{}color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{YlGn}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{fill\PYZus{}opacity}\PY{o}{=}\PY{l+m+mf}{0.7}\PY{p}{,}
+             \PY{n}{line\PYZus{}opacity}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{,}
+             \PY{n}{legend\PYZus{}name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Biopower of Gaseous (Gigawatt Hours)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{threshold\PYZus{}scale}\PY{o}{=}\PY{n}{threshold\PYZus{}scale}\PY{p}{,}
+             \PY{n}{reset}\PY{o}{=}\PY{k+kc}{True}
+         \PY{p}{)}
+         
+         
+         \PY{n}{folium}\PY{o}{.}\PY{n}{LayerControl}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{add\PYZus{}to}\PY{p}{(}\PY{n}{m}\PY{p}{)}
+         
+         \PY{n}{m}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}36}]:} <folium.folium.Map at 0x112129518>
+\end{Verbatim}
+            
+    \paragraph{Table of estimated technical potential for Biopower of
+Gaseous by
+state:}\label{table-of-estimated-technical-potential-for-biopower-of-gaseous-by-state}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{n}{biopowerGaseous\PYZus{}DF}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{biopowerGaseous\PYZus{}sumDF}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}37}]:}                    state  biopowerGaseous\_GWh  biopowerGaseous\_GW  \textbackslash{}
+         0                Alabama                 1533                   0   
+         1                 Alaska                   61                   0   
+         2                Arizona                  837                   0   
+         3               Arkansas                 1063                   0   
+         4             California                15510                   1   
+         5               Colorado                 1224                   0   
+         6            Connecticut                  414                   0   
+         7               Delaware                  385                   0   
+         8   District of Columbia                    4                   0   
+         9                Florida                 3693                   0   
+         10               Georgia                 2220                   0   
+         11                Hawaii                  200                   0   
+         12                 Idaho                  182                   0   
+         13              Illinois                 4222                   0   
+         14               Indiana                 2978                   0   
+         15                  Iowa                 1425                   0   
+         16                Kansas                  753                   0   
+         17              Kentucky                 1273                   0   
+         18             Louisiana                  857                   0   
+         19                 Maine                  124                   0   
+         20              Maryland                 1226                   0   
+         21         Massachusetts                 1103                   0   
+         22              Michigan                 2539                   0   
+         23             Minnesota                 1029                   0   
+         24           Mississippi                 1076                   0   
+         25              Missouri                 2147                   0   
+         26               Montana                  147                   0   
+         27              Nebraska                  750                   0   
+         28                Nevada                  325                   0   
+         29         New Hampshire                  389                   0   
+         30            New Jersey                 2310                   0   
+         31            New Mexico                  353                   0   
+         32              New York                 2950                   0   
+         33        North Carolina                 3780                   0   
+         34          North Dakota                   30                   0   
+         35                  Ohio                 3363                   0   
+         36              Oklahoma                  965                   0   
+         37                Oregon                  890                   0   
+         38          Pennsylvania                 7132                   0   
+         39          Rhode Island                  474                   0   
+         40        South Carolina                 1430                   0   
+         41          South Dakota                  235                   0   
+         42             Tennessee                 1984                   0   
+         43                 Texas                 5898                   0   
+         44                  Utah                  427                   0   
+         45               Vermont                  203                   0   
+         46              Virginia                 2498                   0   
+         47            Washington                 1514                   0   
+         48         West Virginia                  281                   0   
+         49             Wisconsin                 2072                   0   
+         50               Wyoming                   50                   0   
+         0              U.S Total                88528                   1   
+         
+             biopowerGaseous\_Tonnes-CH4  
+         0                       326186  
+         1                        13156  
+         2                       178188  
+         3                       226178  
+         4                      3300211  
+         5                       260470  
+         6                        88227  
+         7                        82013  
+         8                          977  
+         9                       785787  
+         10                      472546  
+         11                       42602  
+         12                       38830  
+         13                      898345  
+         14                      633660  
+         15                      303277  
+         16                      160219  
+         17                      271052  
+         18                      182404  
+         19                       26542  
+         20                      260965  
+         21                      234811  
+         22                      540282  
+         23                      219074  
+         24                      229076  
+         25                      456990  
+         26                       31324  
+         27                      159729  
+         28                       69248  
+         29                       82889  
+         30                      491691  
+         31                       75228  
+         32                      627734  
+         33                      804301  
+         34                        6383  
+         35                      715603  
+         36                      205359  
+         37                      189571  
+         38                     1517540  
+         39                      100888  
+         40                      304312  
+         41                       50072  
+         42                      422220  
+         43                     1254999  
+         44                       91018  
+         45                       43248  
+         46                      531592  
+         47                      322155  
+         48                       59811  
+         49                      441053  
+         50                       10670  
+         0                     18840706  
+\end{Verbatim}
+            
+    \subsubsection{8. Hydrothermal Power Systems (Geothermal Energy
+Technologies)}\label{hydrothermal-power-systems-geothermal-energy-technologies}
+
+\begin{itemize}
+\tightlist
+\item
+  Definition: For identified hydrothermal and undiscovered hydrothermal,
+  we used estimates from Williams et al. (2008), who estimated electric
+  power generation potential of conventional geothermal resources
+  (hydrothermal), both identified and unidentified in the western United
+  States, Alaska, and Hawaii.
+\item
+  In all cases, exclusions included public lands, such as national
+  parks, that are not available for resource development.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{n}{geothermalHydrothermal\PYZus{}DF} \PY{o}{=} \PY{n}{inputDF}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{geothermalHydrothermal\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{geothermalHydrothermal\PYZus{}GW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+         \PY{n}{geothermalHydrothermal\PYZus{}sumDF} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{U.S Total}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PYZbs{}
+                                                    \PY{n}{geothermalHydrothermal\PYZus{}DF}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{geothermalHydrothermal\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PYZbs{}
+                                                    \PY{n}{geothermalHydrothermal\PYZus{}DF}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{geothermalHydrothermal\PYZus{}GW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PYZbs{}
+                                                  \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{geothermalHydrothermal\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{geothermalHydrothermal\PYZus{}GW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \paragraph{The total estimated annual technical potential in the United
+States for Hydrothermal Power
+Systems：}\label{the-total-estimated-annual-technical-potential-in-the-united-states-for-hydrothermal-power-systems}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{n}{geothermalHydrothermal\PYZus{}sumDF}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}39}]:}        state  geothermalHydrothermal\_GWh  geothermalHydrothermal\_GW
+         0  U.S Total                      301376                         32
+\end{Verbatim}
+            
+    \paragraph{Choropleth map of estimated technical potential for
+Hydrothermal Power Systems in the
+U.S.:}\label{choropleth-map-of-estimated-technical-potential-for-hydrothermal-power-systems-in-the-u.s.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{n}{threshold\PYZus{}scale} \PY{o}{=} \PY{n}{split\PYZus{}six}\PY{p}{(}\PY{n}{geothermalHydrothermal\PYZus{}DF}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{geothermalHydrothermal\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{m} \PY{o}{=} \PY{n}{folium}\PY{o}{.}\PY{n}{Map}\PY{p}{(}\PY{n}{location}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{48}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{102}\PY{p}{]}\PY{p}{,} \PY{n}{zoom\PYZus{}start}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}
+         \PY{n}{m}\PY{o}{.}\PY{n}{choropleth}\PY{p}{(}
+             \PY{n}{geo\PYZus{}data}\PY{o}{=}\PY{n}{state\PYZus{}geo}\PY{p}{,}
+             \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{choropleth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{data}\PY{o}{=}\PY{n}{geothermalHydrothermal\PYZus{}DF}\PY{p}{,}
+             \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{geothermalHydrothermal\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+             \PY{n}{key\PYZus{}on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{feature.properties.name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{fill\PYZus{}color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{YlGn}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{fill\PYZus{}opacity}\PY{o}{=}\PY{l+m+mf}{0.7}\PY{p}{,}
+             \PY{n}{line\PYZus{}opacity}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{,}
+             \PY{n}{legend\PYZus{}name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hydrothermal Power Systems (Gigawatt Hours)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{threshold\PYZus{}scale}\PY{o}{=}\PY{n}{threshold\PYZus{}scale}\PY{p}{,}
+             \PY{n}{reset}\PY{o}{=}\PY{k+kc}{True}
+         \PY{p}{)}
+         
+         
+         \PY{n}{folium}\PY{o}{.}\PY{n}{LayerControl}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{add\PYZus{}to}\PY{p}{(}\PY{n}{m}\PY{p}{)}
+         
+         \PY{n}{m}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}40}]:} <folium.folium.Map at 0x11206dac8>
+\end{Verbatim}
+            
+    \paragraph{Table of estimated technical potential for Hydrothermal Power
+Systems by
+state:}\label{table-of-estimated-technical-potential-for-hydrothermal-power-systems-by-state}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{n}{geothermalHydrothermal\PYZus{}DF}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{geothermalHydrothermal\PYZus{}sumDF}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}41}]:}                    state  geothermalHydrothermal\_GWh  \textbackslash{}
+         0                Alabama                           0   
+         1                 Alaska                       15437   
+         2                Arizona                        8329   
+         3               Arkansas                           0   
+         4             California                      130921   
+         5               Colorado                        8953   
+         6            Connecticut                           0   
+         7               Delaware                           0   
+         8   District of Columbia                           0   
+         9                Florida                           0   
+         10               Georgia                           0   
+         11                Hawaii                       20632   
+         12                 Idaho                       17205   
+         13              Illinois                           0   
+         14               Indiana                           0   
+         15                  Iowa                           0   
+         16                Kansas                           0   
+         17              Kentucky                           0   
+         18             Louisiana                           0   
+         19                 Maine                           0   
+         20              Maryland                           0   
+         21         Massachusetts                           0   
+         22              Michigan                           0   
+         23             Minnesota                           0   
+         24           Mississippi                           0   
+         25              Missouri                           0   
+         26               Montana                        6547   
+         27              Nebraska                           0   
+         28                Nevada                       45320   
+         29         New Hampshire                           0   
+         30            New Jersey                           0   
+         31            New Mexico                       12933   
+         32              New York                           0   
+         33        North Carolina                           0   
+         34          North Dakota                           0   
+         35                  Ohio                           0   
+         36              Oklahoma                           0   
+         37                Oregon                       18199   
+         38          Pennsylvania                           0   
+         39          Rhode Island                           0   
+         40        South Carolina                           0   
+         41          South Dakota                           0   
+         42             Tennessee                           0   
+         43                 Texas                           0   
+         44                  Utah                       12981   
+         45               Vermont                           0   
+         46              Virginia                           0   
+         47            Washington                        2546   
+         48         West Virginia                           0   
+         49             Wisconsin                           0   
+         50               Wyoming                        1373   
+         0              U.S Total                      301376   
+         
+             geothermalHydrothermal\_GW  
+         0                           0  
+         1                           1  
+         2                           1  
+         3                           0  
+         4                          16  
+         5                           1  
+         6                           0  
+         7                           0  
+         8                           0  
+         9                           0  
+         10                          0  
+         11                          2  
+         12                          2  
+         13                          0  
+         14                          0  
+         15                          0  
+         16                          0  
+         17                          0  
+         18                          0  
+         19                          0  
+         20                          0  
+         21                          0  
+         22                          0  
+         23                          0  
+         24                          0  
+         25                          0  
+         26                          0  
+         27                          0  
+         28                          5  
+         29                          0  
+         30                          0  
+         31                          1  
+         32                          0  
+         33                          0  
+         34                          0  
+         35                          0  
+         36                          0  
+         37                          2  
+         38                          0  
+         39                          0  
+         40                          0  
+         41                          0  
+         42                          0  
+         43                          0  
+         44                          1  
+         45                          0  
+         46                          0  
+         47                          0  
+         48                          0  
+         49                          0  
+         50                          0  
+         0                          32  
+\end{Verbatim}
+            
+    \subsubsection{9. Enhanced Geothermal
+Systems}\label{enhanced-geothermal-systems}
+
+\begin{itemize}
+\tightlist
+\item
+  Definition: We derive technical potential estimates for enhanced
+  geothermal systems (EGS) from temperature at depth data obtained from
+  the Southern Methodist University's (SMU) Geothermal Laboratory
+\item
+  Electric generation potential calculations summarize the technical
+  potential (MW) at all depth intervals, electric generation potential
+  (GWh) at all depth intervals with a 90\% capacity factor, and annual
+  electric generation potential (GWh) only at optimum depth.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{n}{EGSGeothermal\PYZus{}DF} \PY{o}{=} \PY{n}{inputDF}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EGSGeothermal\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EGSGeothermal\PYZus{}GW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+         \PY{n}{EGSGeothermal\PYZus{}sumDF} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{U.S Total}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PYZbs{}
+                                                    \PY{n}{EGSGeothermal\PYZus{}DF}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EGSGeothermal\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PYZbs{}
+                                                    \PY{n}{EGSGeothermal\PYZus{}DF}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EGSGeothermal\PYZus{}GW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PYZbs{}
+                                                  \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EGSGeothermal\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EGSGeothermal\PYZus{}GW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \paragraph{The total estimated annual technical potential in the United
+States for Enhanced Geothermal
+Systems：}\label{the-total-estimated-annual-technical-potential-in-the-united-states-for-enhanced-geothermal-systems}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{n}{EGSGeothermal\PYZus{}sumDF}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}43}]:}        state  EGSGeothermal\_GWh  EGSGeothermal\_GW
+         0  U.S Total         31344671.0            3948.0
+\end{Verbatim}
+            
+    \paragraph{Choropleth map of estimated technical potential for Enhanced
+Geothermal Systems in the
+U.S.:}\label{choropleth-map-of-estimated-technical-potential-for-enhanced-geothermal-systems-in-the-u.s.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{n}{threshold\PYZus{}scale} \PY{o}{=} \PY{n}{split\PYZus{}six}\PY{p}{(}\PY{n}{EGSGeothermal\PYZus{}DF}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EGSGeothermal\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{m} \PY{o}{=} \PY{n}{folium}\PY{o}{.}\PY{n}{Map}\PY{p}{(}\PY{n}{location}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{48}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{102}\PY{p}{]}\PY{p}{,} \PY{n}{zoom\PYZus{}start}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}
+         \PY{n}{m}\PY{o}{.}\PY{n}{choropleth}\PY{p}{(}
+             \PY{n}{geo\PYZus{}data}\PY{o}{=}\PY{n}{state\PYZus{}geo}\PY{p}{,}
+             \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{choropleth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{data}\PY{o}{=}\PY{n}{EGSGeothermal\PYZus{}DF}\PY{p}{,}
+             \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EGSGeothermal\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+             \PY{n}{key\PYZus{}on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{feature.properties.name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{fill\PYZus{}color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{YlGn}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{fill\PYZus{}opacity}\PY{o}{=}\PY{l+m+mf}{0.7}\PY{p}{,}
+             \PY{n}{line\PYZus{}opacity}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{,}
+             \PY{n}{legend\PYZus{}name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Enhanced Geothermal Systems (Gigawatt Hours)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{threshold\PYZus{}scale}\PY{o}{=}\PY{n}{threshold\PYZus{}scale}\PY{p}{,}
+             \PY{n}{reset}\PY{o}{=}\PY{k+kc}{True}
+         \PY{p}{)}
+         
+         
+         \PY{n}{folium}\PY{o}{.}\PY{n}{LayerControl}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{add\PYZus{}to}\PY{p}{(}\PY{n}{m}\PY{p}{)}
+         
+         \PY{n}{m}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}44}]:} <folium.folium.Map at 0x11206d6d8>
+\end{Verbatim}
+            
+    \paragraph{Table of estimated technical potential for Enhanced
+Geothermal Systems by
+state:}\label{table-of-estimated-technical-potential-for-enhanced-geothermal-systems-by-state}
+
+The vast majority of the geothermal potential for EGS(31,344 TWh) within
+the contiguous United States is located in the westernmost portion of
+the country.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{n}{EGSGeothermal\PYZus{}DF}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{EGSGeothermal\PYZus{}sumDF}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}45}]:}                    state  EGSGeothermal\_GWh  EGSGeothermal\_GW
+         0                Alabama           535489.0              67.0
+         1                 Alaska                0.0               0.0
+         2                Arizona          1239147.0             157.0
+         3               Arkansas           628621.0              79.0
+         4             California          1344179.0             170.0
+         5               Colorado          1251657.0             158.0
+         6            Connecticut            56078.0               7.0
+         7               Delaware            22813.0               2.0
+         8   District of Columbia              697.0               0.0
+         9                Florida           374161.0              47.0
+         10               Georgia           353206.0              44.0
+         11                Hawaii                0.0               0.0
+         12                 Idaho           993257.0             125.0
+         13              Illinois           676055.0              85.0
+         14               Indiana           434258.0              55.0
+         15                  Iowa           606390.0              76.0
+         16                Kansas           989675.0             125.0
+         17              Kentucky           484658.0              61.0
+         18             Louisiana           484271.0              61.0
+         19                 Maine           377075.0              47.0
+         20              Maryland            86649.0              10.0
+         21         Massachusetts            92227.0              11.0
+         22              Michigan           457850.0              58.0
+         23             Minnesota           369784.0              46.0
+         24           Mississippi           559056.0              70.0
+         25              Missouri           835444.0             105.0
+         26               Montana          1647303.0             208.0
+         27              Nebraska           927996.0             117.0
+         28                Nevada          1262174.0             160.0
+         29         New Hampshire           104314.0              13.0
+         30            New Jersey            35230.0               4.0
+         31            New Mexico          1417978.0             179.0
+         32              New York           375400.0              47.0
+         33        North Carolina           420741.0              53.0
+         34          North Dakota           820226.0             104.0
+         35                  Ohio           495921.0              62.0
+         36              Oklahoma           779667.0              98.0
+         37                Oregon           914105.0             115.0
+         38          Pennsylvania           327340.0              41.0
+         39          Rhode Island            11491.0               1.0
+         40        South Carolina           364104.0              46.0
+         41          South Dakota           921972.0             116.0
+         42             Tennessee           428380.0              54.0
+         43                 Texas          3030250.0             384.0
+         44                  Utah           939380.0             119.0
+         45               Vermont            35616.0               4.0
+         46              Virginia           290736.0              36.0
+         47            Washington           563023.0              71.0
+         48         West Virginia           261376.0              33.0
+         49             Wisconsin           647173.0              82.0
+         50               Wyoming          1070078.0             135.0
+         0              U.S Total         31344671.0            3948.0
+\end{Verbatim}
+            
+    \subsubsection{10. Hydropower}\label{hydropower}
+
+\begin{itemize}
+\tightlist
+\item
+  Definition: Source point locations of hydropower estimates were
+  provided by the Idaho National Laboratory and were taken from Hall et
+  al. (2006).\\
+\item
+  The feasibility study included additional economic potential criteria
+  such as site accessibility, load or transmission proximity, along with
+  technical potential exclusions of land use or environmental
+  sensitivity.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{n}{hydropower\PYZus{}DF} \PY{o}{=} \PY{n}{inputDF}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hydropower\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hydropower\PYZus{}GW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hydropower\PYZus{}countOfSites}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+         \PY{n}{hydropower\PYZus{}sumDF} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{U.S Total}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PYZbs{}
+                                                    \PY{n}{hydropower\PYZus{}DF}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hydropower\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PYZbs{}
+                                                    \PY{n}{hydropower\PYZus{}DF}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hydropower\PYZus{}GW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PYZbs{}
+                                                    \PY{n}{hydropower\PYZus{}DF}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hydropower\PYZus{}countOfSites}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PYZbs{}
+                                                  \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hydropower\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hydropower\PYZus{}GW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hydropower\PYZus{}countOfSites}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \paragraph{The total estimated annual technical potential in the United
+States for Hydropower
+：}\label{the-total-estimated-annual-technical-potential-in-the-united-states-for-hydropower}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{n}{hydropower\PYZus{}sumDF}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}47}]:}        state  hydropower\_GWh  hydropower\_GW  hydropower\_countOfSites
+         0  U.S Total          258929             38                   128126
+\end{Verbatim}
+            
+    \paragraph{Choropleth map of estimated technical potential for
+Hydropower in the
+U.S.:}\label{choropleth-map-of-estimated-technical-potential-for-hydropower-in-the-u.s.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{n}{threshold\PYZus{}scale} \PY{o}{=} \PY{n}{split\PYZus{}six}\PY{p}{(}\PY{n}{hydropower\PYZus{}DF}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hydropower\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{m} \PY{o}{=} \PY{n}{folium}\PY{o}{.}\PY{n}{Map}\PY{p}{(}\PY{n}{location}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{48}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{102}\PY{p}{]}\PY{p}{,} \PY{n}{zoom\PYZus{}start}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}
+         \PY{n}{m}\PY{o}{.}\PY{n}{choropleth}\PY{p}{(}
+             \PY{n}{geo\PYZus{}data}\PY{o}{=}\PY{n}{state\PYZus{}geo}\PY{p}{,}
+             \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{choropleth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{data}\PY{o}{=}\PY{n}{hydropower\PYZus{}DF}\PY{p}{,}
+             \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hydropower\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+             \PY{n}{key\PYZus{}on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{feature.properties.name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{fill\PYZus{}color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{YlGn}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{fill\PYZus{}opacity}\PY{o}{=}\PY{l+m+mf}{0.7}\PY{p}{,}
+             \PY{n}{line\PYZus{}opacity}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{,}
+             \PY{n}{legend\PYZus{}name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ Hydropower (Gigawatt Hours)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{threshold\PYZus{}scale}\PY{o}{=}\PY{n}{threshold\PYZus{}scale}\PY{p}{,}
+             \PY{n}{reset}\PY{o}{=}\PY{k+kc}{True}
+         \PY{p}{)}
+         
+         
+         \PY{n}{folium}\PY{o}{.}\PY{n}{LayerControl}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{add\PYZus{}to}\PY{p}{(}\PY{n}{m}\PY{p}{)}
+         
+         \PY{n}{m}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}48}]:} <folium.folium.Map at 0x112395080>
+\end{Verbatim}
+            
+    \paragraph{Table of estimated technical potential for Enhanced
+Geothermal Systems by
+state:}\label{table-of-estimated-technical-potential-for-enhanced-geothermal-systems-by-state}
+
+Technical potential for hydropower exists predominately in the Northwest
+and Alaska.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{n}{hydropower\PYZus{}DF}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{hydropower\PYZus{}sumDF}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}49}]:}                    state  hydropower\_GWh  hydropower\_GW  \textbackslash{}
+         0                Alabama            4102              0   
+         1                 Alaska           23675              5   
+         2                Arizona            1303              0   
+         3               Arkansas            6093              1   
+         4             California           30023              6   
+         5               Colorado            7789              1   
+         6            Connecticut             922              0   
+         7               Delaware              30              0   
+         8   District of Columbia               0              0   
+         9                Florida             682              0   
+         10               Georgia            1988              0   
+         11                Hawaii            2602              0   
+         12                 Idaho           18757              4   
+         13              Illinois            4882              1   
+         14               Indiana            2394              0   
+         15                  Iowa            2818              0   
+         16                Kansas            2507              0   
+         17              Kentucky            4255              0   
+         18             Louisiana            2423              0   
+         19                 Maine            3916              0   
+         20              Maryland             814              0   
+         21         Massachusetts            1196              0   
+         22              Michigan            1180              0   
+         23             Minnesota            1254              0   
+         24           Mississippi            2211              0   
+         25              Missouri            7198              1   
+         26               Montana           14546              3   
+         27              Nebraska            3142              0   
+         28                Nevada             845              0   
+         29         New Hampshire            1740              0   
+         30            New Jersey             549              0   
+         31            New Mexico            1362              0   
+         32              New York            6711              1   
+         33        North Carolina            3036              0   
+         34          North Dakota             347              0   
+         35                  Ohio            3045              0   
+         36              Oklahoma            3015              0   
+         37                Oregon           18184              4   
+         38          Pennsylvania            8368              1   
+         39          Rhode Island              59              0   
+         40        South Carolina            1888              0   
+         41          South Dakota            1047              0   
+         42             Tennessee            5744              1   
+         43                 Texas            3006              0   
+         44                  Utah            3528              0   
+         45               Vermont            1710              0   
+         46              Virginia            3656              0   
+         47            Washington           27248              6   
+         48         West Virginia            4408              1   
+         49             Wisconsin            2286              1   
+         50               Wyoming            4445              1   
+         0              U.S Total          258929             38   
+         
+             hydropower\_countOfSites  
+         0                      2435  
+         1                      3053  
+         2                      1958  
+         3                      3268  
+         4                      9692  
+         5                      5060  
+         6                       659  
+         7                        25  
+         8                         2  
+         9                       493  
+         10                     2100  
+         11                      437  
+         12                     6706  
+         13                     1330  
+         14                     1142  
+         15                     2398  
+         16                     3201  
+         17                     1394  
+         18                      934  
+         19                     1373  
+         20                      491  
+         21                      560  
+         22                     1942  
+         23                     1391  
+         24                     1536  
+         25                     5089  
+         26                     6859  
+         27                     2880  
+         28                     1489  
+         29                      810  
+         30                      402  
+         31                     1810  
+         32                     4839  
+         33                     2131  
+         34                      572  
+         35                     1791  
+         36                     2824  
+         37                     7993  
+         38                     4466  
+         39                       86  
+         40                      889  
+         41                     1712  
+         42                     2610  
+         43                     4366  
+         44                     3394  
+         45                     1207  
+         46                     2601  
+         47                     7310  
+         48                     1711  
+         49                     1863  
+         50                     2842  
+         0                    128126  
+\end{Verbatim}
+            
+    \subsection{Visualizing distribution of renewable energy in each
+state}\label{visualizing-distribution-of-renewable-energy-in-each-state}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{n}{state} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{n}{energy\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{idx}\PY{p}{,} \PY{n}{row} \PY{o+ow}{in} \PY{n}{inputDF}\PY{o}{.}\PY{n}{iterrows}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{state}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{row}\PY{o}{.}\PY{n}{state}\PY{p}{)}
+             \PY{n}{energy\PYZus{}dist} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+             \PY{n}{energy\PYZus{}dist}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{urbanUtilityScalePV}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{urbanUtilityScalePV\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+             \PY{n}{energy\PYZus{}dist}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ruralUtilityScalePV}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ruralUtilityScalePV\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+             \PY{n}{energy\PYZus{}dist}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rooftopPV}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rooftopPV\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+             \PY{n}{energy\PYZus{}dist}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CSP}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CSP\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+             \PY{n}{energy\PYZus{}dist}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{onshoreWind}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{onshoreWind\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+             \PY{n}{energy\PYZus{}dist}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{offshoreWind}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{offshoreWind\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+             \PY{n}{energy\PYZus{}dist}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{biopowerSolid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{biopowerSolid\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+             \PY{n}{energy\PYZus{}dist}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{biopowerGaseous}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{biopowerGaseous\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+             \PY{n}{energy\PYZus{}dist}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{geothermalHydrothermal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{geothermalHydrothermal\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+             \PY{n}{energy\PYZus{}dist}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EGSGeothermal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EGSGeothermal\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+             \PY{n}{energy\PYZus{}dist}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hydropower}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hydropower\PYZus{}GWh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+             \PY{n}{energy\PYZus{}list}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{energy\PYZus{}dist}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} \PY{n}{energy\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{o}{.}\PY{n}{from\PYZus{}dict}\PY{p}{(}\PY{n}{energy\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{orient}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{index}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{state}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{energy\PYZus{}df\PYZus{}tmp} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{o}{.}\PY{n}{from\PYZus{}dict}\PY{p}{(}\PY{n}{energy\PYZus{}list}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{orient}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{index}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+             \PY{n}{energy\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{energy\PYZus{}df}\PY{p}{,} \PY{n}{energy\PYZus{}df\PYZus{}tmp}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{energy\PYZus{}df}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{n}{state}
+                         
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}52}]:} \PY{n}{energy\PYZus{}df}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}52}]:}                           Alabama     Alaska     Arizona   Arkansas  \textbackslash{}
+         CSP                           0.0        0.0  12544333.0        0.0   
+         EGSGeothermal            535489.0        0.0   1239147.0   628621.0   
+         biopowerGaseous            1533.0       61.0       837.0     1063.0   
+         biopowerSolid             11193.0      513.0      1087.0    14381.0   
+         geothermalHydrothermal        0.0    15437.0      8329.0        0.0   
+         hydropower                 4102.0    23675.0      1303.0     6093.0   
+         offshoreWind                  0.0        0.0         0.0        0.0   
+         onshoreWind                 283.0  1373433.0     26036.0    22892.0   
+         rooftopPV                 15475.0        0.0     22736.0     8484.0   
+         ruralUtilityScalePV     3706838.0  8282976.0  11867693.0  4986388.0   
+         urbanUtilityScalePV       35850.0      166.0    121305.0    28960.0   
+         
+                                 California    Colorado  Connecticut  Delaware  \textbackslash{}
+         CSP                      8490916.0   9154524.0          0.0       0.0   
+         EGSGeothermal            1344179.0   1251657.0      56078.0   22813.0   
+         biopowerGaseous            15510.0      1224.0        414.0     385.0   
+         biopowerSolid              12408.0      2913.0        494.0     512.0   
+         geothermalHydrothermal    130921.0      8953.0          0.0       0.0   
+         hydropower                 30023.0      7789.0        922.0      30.0   
+         offshoreWind             2662579.0         0.0      26545.0   60654.0   
+         onshoreWind                89862.0   1096035.0         61.0      21.0   
+         rooftopPV                 106411.0     16162.0       6616.0    2185.0   
+         ruralUtilityScalePV      8855917.0  10238083.0      19627.0  272332.0   
+         urbanUtilityScalePV       246008.0     43470.0       7716.0   14856.0   
+         
+                                 District of Columbia    Florida    {\ldots}      \textbackslash{}
+         CSP                                      0.0      358.0    {\ldots}       
+         EGSGeothermal                          697.0   374161.0    {\ldots}       
+         biopowerGaseous                          4.0     3693.0    {\ldots}       
+         biopowerSolid                           61.0     9664.0    {\ldots}       
+         geothermalHydrothermal                   0.0        0.0    {\ldots}       
+         hydropower                               0.0      682.0    {\ldots}       
+         offshoreWind                             0.0    34684.0    {\ldots}       
+         onshoreWind                              0.0        0.0    {\ldots}       
+         rooftopPV                             2490.0    63986.0    {\ldots}       
+         ruralUtilityScalePV                      0.0  5137346.0    {\ldots}       
+         urbanUtilityScalePV                      8.0    72787.0    {\ldots}       
+         
+                                 South Dakota  Tennessee       Texas       Utah  \textbackslash{}
+         CSP                        1629659.0        0.0  22786749.0  5067546.0   
+         EGSGeothermal               921972.0   428380.0   3030250.0   939380.0   
+         biopowerGaseous                235.0     1984.0      5898.0      427.0   
+         biopowerSolid                 8380.0     6095.0     16077.0      433.0   
+         geothermalHydrothermal           0.0        0.0         0.0    12981.0   
+         hydropower                    1047.0     5744.0      3006.0     3528.0   
+         offshoreWind                     0.0        0.0   1101062.0        0.0   
+         onshoreWind                2901858.0      765.0   5552399.0    31552.0   
+         rooftopPV                     2082.0    19685.0     78716.0     7513.0   
+         ruralUtilityScalePV       10008873.0  2225989.0  38993581.0  5184878.0   
+         urbanUtilityScalePV           4573.0    50243.0    294684.0    30492.0   
+         
+                                 Vermont   Virginia  Washington  West Virginia  \textbackslash{}
+         CSP                         0.0        0.0    161713.0            0.0   
+         EGSGeothermal           35616.0   290736.0    563023.0       261376.0   
+         biopowerGaseous           203.0     2498.0      1514.0          281.0   
+         biopowerSolid             491.0     7866.0     12311.0         2406.0   
+         geothermalHydrothermal      0.0        0.0      2546.0            0.0   
+         hydropower               1710.0     3656.0     27248.0         4408.0   
+         offshoreWind                0.0   361053.0    488025.0            0.0   
+         onshoreWind              7795.0     4589.0     47249.0         4951.0   
+         rooftopPV                1115.0    22266.0     13599.0         4220.0   
+         ruralUtilityScalePV     54727.0  1882467.0   1738150.0        52693.0   
+         urbanUtilityScalePV      1632.0    27451.0     33690.0         3023.0   
+         
+                                 Wisconsin    Wyoming  
+         CSP                           0.0  5406407.0  
+         EGSGeothermal            647173.0  1070078.0  
+         biopowerGaseous            2072.0       50.0  
+         biopowerSolid             11221.0      503.0  
+         geothermalHydrothermal        0.0     1373.0  
+         hydropower                 2286.0     4445.0  
+         offshoreWind             317754.0        0.0  
+         onshoreWind              255266.0  1653856.0  
+         rooftopPV                 13939.0     1550.0  
+         ruralUtilityScalePV     5042258.0  5727224.0  
+         urbanUtilityScalePV       54938.0     7232.0  
+         
+         [11 rows x 51 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}55}]:} \PY{n}{energy\PYZus{}df}\PY{o}{.}\PY{n}{plot}\PY{o}{.}\PY{n}{pie}\PY{p}{(}
+                          \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{200}\PY{p}{)}\PY{p}{,} 
+                          \PY{n}{fontsize} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{,} \PY{n}{autopct}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{}1.1f}\PY{l+s+si}{\PYZpc{}\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                          \PY{n}{legend} \PY{o}{=} \PY{k+kc}{True}\PY{p}{,}
+                          \PY{n}{subplots}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}
+                          \PY{n}{layout}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{26}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,}
+                          \PY{n}{title} \PY{o}{=} \PY{n}{state}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}55}]:} array([[<matplotlib.axes.\_subplots.AxesSubplot object at 0x1188e8630>,
+                 <matplotlib.axes.\_subplots.AxesSubplot object at 0x11b55b518>],
+                [<matplotlib.axes.\_subplots.AxesSubplot object at 0x11b58a2e8>,
+                 <matplotlib.axes.\_subplots.AxesSubplot object at 0x11b5b72b0>],
+                [<matplotlib.axes.\_subplots.AxesSubplot object at 0x11b5f2208>,
+                 <matplotlib.axes.\_subplots.AxesSubplot object at 0x11b500a20>],
+                [<matplotlib.axes.\_subplots.AxesSubplot object at 0x11bdbceb8>,
+                 <matplotlib.axes.\_subplots.AxesSubplot object at 0x11bdff080>],
+                [<matplotlib.axes.\_subplots.AxesSubplot object at 0x11be0e320>,
+                 <matplotlib.axes.\_subplots.AxesSubplot object at 0x11be6bda0>],
+                [<matplotlib.axes.\_subplots.AxesSubplot object at 0x11be9f5f8>,
+                 <matplotlib.axes.\_subplots.AxesSubplot object at 0x11bebd4a8>],
+                [<matplotlib.axes.\_subplots.AxesSubplot object at 0x11bf12438>,
+                 <matplotlib.axes.\_subplots.AxesSubplot object at 0x11bf4d240>],
+                [<matplotlib.axes.\_subplots.AxesSubplot object at 0x11bf60048>,
+                 <matplotlib.axes.\_subplots.AxesSubplot object at 0x11bfb1780>],
+                [<matplotlib.axes.\_subplots.AxesSubplot object at 0x11bfea6d8>,
+                 <matplotlib.axes.\_subplots.AxesSubplot object at 0x11c001c88>],
+                [<matplotlib.axes.\_subplots.AxesSubplot object at 0x11c0604a8>,
+                 <matplotlib.axes.\_subplots.AxesSubplot object at 0x11c086e80>],
+                [<matplotlib.axes.\_subplots.AxesSubplot object at 0x11c0c1208>,
+                 <matplotlib.axes.\_subplots.AxesSubplot object at 0x11c0fdcc0>],
+                [<matplotlib.axes.\_subplots.AxesSubplot object at 0x11c135ac8>,
+                 <matplotlib.axes.\_subplots.AxesSubplot object at 0x11c158400>],
+                [<matplotlib.axes.\_subplots.AxesSubplot object at 0x11c1a60b8>,
+                 <matplotlib.axes.\_subplots.AxesSubplot object at 0x11c1d3fd0>],
+                [<matplotlib.axes.\_subplots.AxesSubplot object at 0x11c1f89e8>,
+                 <matplotlib.axes.\_subplots.AxesSubplot object at 0x11c24cda0>],
+                [<matplotlib.axes.\_subplots.AxesSubplot object at 0x11c27e7b8>,
+                 <matplotlib.axes.\_subplots.AxesSubplot object at 0x11c29e1d0>],
+                [<matplotlib.axes.\_subplots.AxesSubplot object at 0x11c2f55f8>,
+                 <matplotlib.axes.\_subplots.AxesSubplot object at 0x11c32e470>],
+                [<matplotlib.axes.\_subplots.AxesSubplot object at 0x11c345e48>,
+                 <matplotlib.axes.\_subplots.AxesSubplot object at 0x11c3939b0>],
+                [<matplotlib.axes.\_subplots.AxesSubplot object at 0x11c3ce908>,
+                 <matplotlib.axes.\_subplots.AxesSubplot object at 0x11c3edb70>],
+                [<matplotlib.axes.\_subplots.AxesSubplot object at 0x11c5436d8>,
+                 <matplotlib.axes.\_subplots.AxesSubplot object at 0x11c5780f0>],
+                [<matplotlib.axes.\_subplots.AxesSubplot object at 0x11c5b3048>,
+                 <matplotlib.axes.\_subplots.AxesSubplot object at 0x11c5e2ef0>],
+                [<matplotlib.axes.\_subplots.AxesSubplot object at 0x11c618cf8>,
+                 <matplotlib.axes.\_subplots.AxesSubplot object at 0x11c634278>],
+                [<matplotlib.axes.\_subplots.AxesSubplot object at 0x11c68d2e8>,
+                 <matplotlib.axes.\_subplots.AxesSubplot object at 0x11c6c3240>],
+                [<matplotlib.axes.\_subplots.AxesSubplot object at 0x11c6dcb38>,
+                 <matplotlib.axes.\_subplots.AxesSubplot object at 0x11c739080>],
+                [<matplotlib.axes.\_subplots.AxesSubplot object at 0x11c764a58>,
+                 <matplotlib.axes.\_subplots.AxesSubplot object at 0x11c79d9b0>],
+                [<matplotlib.axes.\_subplots.AxesSubplot object at 0x11c7d7828>,
+                 <matplotlib.axes.\_subplots.AxesSubplot object at 0x11c812630>],
+                [<matplotlib.axes.\_subplots.AxesSubplot object at 0x11c8287f0>,
+                 <matplotlib.axes.\_subplots.AxesSubplot object at 0x11c875be0>]],
+               dtype=object)
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_101_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Plotting the technical potential based on
+state}\label{plotting-the-technical-potential-based-on-state}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}54}]:} \PY{n}{energy\PYZus{}df}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                    \PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                    \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total Renewable Energy Technical Potential}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                    \PY{n}{color} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}66c2ff}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                    \PY{n}{figsize} \PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{,} 
+                    \PY{n}{title} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total Renewable Energy Technical Potential in each state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                    \PY{n}{legend} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total Renewable Energy Technical Potential}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}54}]:} Text(0,0.5,'Total Renewable Energy Technical Potential')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_103_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Conclusion}\label{conclusion}
+
+\begin{itemize}
+\tightlist
+\item
+  Texas has the highest estimated technical potential.
+\item
+  Rural Utility-Scale Photovoltaics is the predominant generation in
+  most states.
+\item
+  Connecticut, New Hampshire and West Virginia mainly depend on Enhanced
+  Geothermal Systems.
+\item
+  Hawaii, Massachusetts and Rhode Island mainly depend on Offshore Wind
+  Power, as the result of geographic location
+\end{itemize}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
