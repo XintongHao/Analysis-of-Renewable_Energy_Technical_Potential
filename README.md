@@ -1,0 +1,1 @@
+# Analysis-of-Renewable_Energy_Technical_Potential
